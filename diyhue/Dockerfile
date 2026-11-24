@@ -11,7 +11,7 @@ ENV BUILD_ARCHI=${BUILD_ARCH}
 # Other settings
 ENV LANG=C.UTF-8
 ENV DIYHUE_VERSION=master
-ENV DIYHUE_COMMIT=cfb2ad539a28043003303b15d2ad890dab0138f5
+ENV DIYHUE_COMMIT=11376e4d72e7f3bae88f1cbc14fe42370650636e
 ENV DIYHUE_UI_VERSION=v2.0.3
 ENV WORKING_DIR=/opt/hue-emulator
 
@@ -27,7 +27,7 @@ RUN apk add --no-cache --upgrade musl musl-utils libcrypto3 libssl3 \
         nmap psmisc iproute2 curl unzip bluez libfaketime
 
 # Download diyhue and unzip it
-RUN curl -sL -o diyhue.zip https://github.com/diyhue/diyHue/archive/${DIYHUE_COMMIT}.zip
+RUN curl -sL -o diyhue.zip https://github.com/jasongilanfarr/diyHue/archive/${DIYHUE_COMMIT}.zip
 RUN unzip -qo diyhue.zip
 RUN rm diyhue.zip
 RUN pip3 install -r /diyHue-${DIYHUE_COMMIT}/requirements.txt --no-cache-dir --break-system-packages --ignore-installed
@@ -45,7 +45,7 @@ RUN cp -r /diyHue-${DIYHUE_COMMIT}/BridgeEmulator/HueEmulator3.py /opt/hue-emula
 RUN cp -r /diyHue-${DIYHUE_COMMIT}/BridgeEmulator/githubInstall.sh /opt/hue-emulator/
 RUN cp -r /diyHue-${DIYHUE_COMMIT}/BridgeEmulator/genCert.sh /diyHue-${DIYHUE_COMMIT}/BridgeEmulator/openssl.conf	/opt/hue-emulator/
 
-RUN curl -sL -o diyHueUI.zip https://github.com/diyhue/diyHueUI/releases/download/${DIYHUE_UI_VERSION}/DiyHueUI-release.zip
+RUN curl -fsSL -o diyHueUI.zip https://github.com/diyhue/diyHueUI/releases/download/${DIYHUE_UI_VERSION}/DiyHueUI-release.zip
 RUN mkdir /diyhueUI
 RUN unzip -qo diyHueUI.zip -d /diyhueUI
 RUN rm diyHueUI.zip
